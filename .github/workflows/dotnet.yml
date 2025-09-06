@@ -2,7 +2,8 @@ name: DemoApplicationGitactions
 
 on:
   push:
-    branches: main
+    branches: master
+  workflow-dispatch:
 
 jobs:
   build:
