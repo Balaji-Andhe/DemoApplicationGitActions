@@ -17,8 +17,9 @@ jobs:
       run: nuget restore DemoApplicationGitActions.sln
 
     - name: Build with MSBuild
+   
       run: |
-       & "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" DemoApplicationGitActions.sln /p:Configuration=Release
+        "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" DemoApplicationGitActions.sln /p:Configuration=Release
 
     - name: Copy to local folder
       run: |
