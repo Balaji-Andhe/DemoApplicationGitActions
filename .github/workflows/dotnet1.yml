@@ -1,10 +1,9 @@
-name: Build and Deploy .NET App Locally
+name: Build and Deploy .NET Framework 4.x
 
 on:
   push:
     branches:
       - master
-      - dev
 
 jobs:
   build:
@@ -14,24 +13,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '4.6.1'  # Adjust to your version
+    - name: Setup NuGet
+      run: nuget restore YourSolution.sln
 
-    - name: Restore dependencies
-      run: dotnet restore
-
-    - name: Build project
-      run: dotnet build --configuration Release
-
-    - name: Publish project
-      run: dotnet publish -c Release -o ./publish
-
-    - name: Deploy to local folder
+    - name: Build with MSBuild
       run: |
-        $destination = "E:\Angular Training"
+        "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe" YourSolution.sln /p:Configuration=Release
+
+    - name: Copy to local folder
+      run: |
+        $source = "YourProject\bin\Release"
+        $destination = "C:\inetpub\wwwroot\MyApp"
         if (!(Test-Path $destination)) {
           New-Item -ItemType Directory -Path $destination
         }
-        Copy-Item -Path "./publish/*" -Destination $destination -Recurse -Force
+        Copy-Item -Path "$source\*" -Destination $destination -Recurse -Force
