@@ -3,7 +3,7 @@ name: Build and Deploy .NET Framework 4.x
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
