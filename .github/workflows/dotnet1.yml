@@ -22,7 +22,7 @@ jobs:
 
     - name: Copy to local folder
       run: |
-        $source = "YourProject\bin\Release"
+        $source = "\DemoApplicationGitActions\bin\Release"
         $destination = "E:\Angular Training"
         if (!(Test-Path $destination)) {
           New-Item -ItemType Directory -Path $destination
