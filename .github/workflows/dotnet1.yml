@@ -18,12 +18,12 @@ jobs:
 
     - name: Build with MSBuild
       run: |
-        "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe" YourSolution.sln /p:Configuration=Release
+        "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe" DemoApplicationGitActions.sln /p:Configuration=Release
 
     - name: Copy to local folder
       run: |
         $source = "YourProject\bin\Release"
-        $destination = "C:\inetpub\wwwroot\MyApp"
+        $destination = "E:\Angular Training"
         if (!(Test-Path $destination)) {
           New-Item -ItemType Directory -Path $destination
         }
