@@ -4,15 +4,28 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1
+      - uses: actions/checkout@v2
 
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4.6.2
-      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x' # Adjust to your required .NET version
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Publish to local folder
+        run: dotnet publish --configuration Release --output ./published
+
+      - name: Upload Published App as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: published-app
+          path: ./published
